@@ -1,24 +1,29 @@
 # payment class
-
 from abc import ABC, abstractmethod
 import random
 from rental import Rental
+from vehicle import EconomyCar, LuxuryCar
+from customer import Customer
 import string
 import time
 import random
 
 class Payment(ABC):
-    rental = Rental()
-    amount = rental.calculate_total()
-    
+    def __init__(self, rental) -> None:
+        self.rental = rental
+        self.amount = rental.calculate_total()
+        
+        
     @abstractmethod
-    def process_payment(self):
+    def process_payment(self) -> bool:
         pass
     
 class MpesaPayment(Payment):
     
-    def __init__(self) -> None:
-        self.phone_number = rental.phone_number
+    def __init__(self, phone_number, rental) -> None:
+        super().__init__(rental)
+        self.phone_number = phone_number
+        self.amount = rental.calculate_total()
     
     def process_payment(self):
         # genereates a transaction code and prints a confirmation
@@ -29,29 +34,54 @@ class MpesaPayment(Payment):
         print("Processing M-Pesa payment...")
         time.sleep(3)
         print(f"Transaction: {"".join(transcode)}")
-        print("Payment of Ksh {amount} successful.")
+        print(f"Payment of Ksh {self.amount} successful.")
+        return True
         
 
 class CardPayment(Payment):
-
-    def process_payment(self, card):
+    def __init__(self, card, rental) -> None:
+        super().__init__(rental)
         if not card or not str(card).strip():
-            raise ValueError("Card can't be empty")
-        
-        return f" Card ending {card[-4:]} charged Ksh {self.amount}"
+                    raise ValueError("Card can't be empty")
+        self.card = card
+
+    def process_payment(self):
+        print(f" Card ending {self.card[-4:]} charged Ksh {self.amount}")
+        return True
 
 class CashPayment(Payment):
-    def process_payment(self, cash):
-        change = 0.0
-        change = cash - self.amount
-        if change < 0:
-           print(f"You are expected to clear a balance of Ksh {change}")
-        elif change == 0.0:
-           print(f"Cash received: Ksh {cash}")
-           print(f"Change due: Ksh {change}")
+    def __init__(self, cash, rental) -> None:
+        super().__init__(rental)
+        self.cash = cash
+        self.change = 0.0
+        
+    def process_payment(self):
+        self.change = self.cash - self.amount
+        if self.change < 0:
+           print(f"You are expected to clear a balance of Ksh {self.change}")
+           return False
+        elif self.change == 0.0:
+           print(f"Cash received: Ksh {self.cash}")
+           print(f"Change due: Ksh {self.change}")
+           return True
         else:
-           print(f"Cash received: Ksh {cash:>5}")
-           print(f"Change due: Ksh {change:>10}")
-           print(f"Cash payment of Ksh {self.amount} recorded")
+           print(f"Cash received:   Ksh {self.cash}")
+           print(f"Change due:      Ksh {self.change}")
+           print(f"Cash payment of  Ksh {self.amount} recorded")
+           return True
          
-   
+
+customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
+subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
+mercedes = LuxuryCar("KDS 1111", "Mercedes Benz", "Sclass", "2020", 15000)
+
+safaridrive = Rental("R001", 3, 5, customer1, mercedes)
+
+# Mpesa = MpesaPayment("0707700995", safaridrive)
+# Mpesa.process_payment()
+
+# card = CardPayment("41236789", safaridrive)
+# card.process_payment()
+
+cash = CashPayment(cash=100000, rental=safaridrive)
+cash.process_payment()

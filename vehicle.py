@@ -11,6 +11,7 @@ class Vehicle(ABC):
         self.year = year 
         self.daily_rate = daily_rate
         self.__available = True
+        self.service_charge = 0.0
     
         
     def display_details(self):
