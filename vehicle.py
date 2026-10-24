@@ -31,7 +31,7 @@ class Vehicle(ABC):
         
    
    
-# lets handle the EconomyCar class
+# EconomyCar class
 class EconomyCar(Vehicle):
     def __init__(self, registration_number, make, model, year, daily_rate):
         super().__init__(registration_number, make, model, year, daily_rate)
@@ -40,19 +40,22 @@ class EconomyCar(Vehicle):
         return self.daily_rate * days
     
 
-# lets handle the SUV class
+# SUV class
 class SUV(Vehicle):
     def __init__(self, registration_number, make, model, year, daily_rate):
         super().__init__(registration_number, make, model, year, daily_rate)
+        self.service_charge = 2000
         
     def calculate_rental_cost(self, days):
-        return self.daily_rate * days + 2000
+        return self.daily_rate * days + self.service_charge
     
+# LuxuryCar class
 class LuxuryCar(Vehicle):
     def __init__(self, registration_number, make, model, year, daily_rate):
         super().__init__(registration_number, make, model, year, daily_rate) 
         
     def calculate_rental_cost(self, days):
+        # 10% insurance on that amount
         flat_rate = self.daily_rate * days 
         return flat_rate + (0.1 * flat_rate)
        
@@ -65,19 +68,20 @@ class LuxuryCar(Vehicle):
 # print(subaru.mark_as_rented())
 # print(subaru.mark_as_available())
 
-# testing the economy car
-subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
-print(subaru.display_details())
-print(subaru.calculate_rental_cost(10))
-print("#" * 20)
+# # testing the economy car
+# subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
+# print(subaru.display_details())
+# print(subaru.calculate_rental_cost(10))
+# print("#" * 20)
 
-# testing the suv car
-LandCruizer = SUV("KDZ 9988", "Land Cruzier", "Prado", "2020", 15000)
-print(LandCruizer.display_details())
-print(LandCruizer.calculate_rental_cost(5))
+# # testing the suv car
+# LandCruizer = SUV("KDZ 9988", "Land Cruzier", "Prado", "2020", 15000)
+# print(LandCruizer.display_details())
+# print(LandCruizer.calculate_rental_cost(5))
+# print(LandCruizer.service_charge)
 
-# testing the luxury car
-sclass = LuxuryCar("KDG 0998", "Benz", "Sclass", "2015", 20000)
-print(sclass.display_details())
-print(sclass.calculate_rental_cost(20))
+# # testing the luxury car
+# sclass = LuxuryCar("KDG 0998", "Benz", "Sclass", "2015", 20000)
+# print(sclass.display_details())
+# print(sclass.calculate_rental_cost(20))
 
