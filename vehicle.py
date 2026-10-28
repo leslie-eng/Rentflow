@@ -14,8 +14,8 @@ class Vehicle(ABC):
         self.service_charge = 0.0
     
         
-    def display_details(self):
-        print(f"car make: {self.make}, model: {self.model}, year: {self.year}, reg number: {self.registration_number}, daily rate: {self.daily_rate}")
+    # def display_details(self):
+    #     print(f"car make: {self.make}, model: {self.model}, year: {self.year}, reg number: {self.registration_number}, daily rate: {self.daily_rate}")
         
     def is_available(self):
         return self.__available
@@ -37,6 +37,10 @@ class EconomyCar(Vehicle):
     def __init__(self, registration_number, make, model, year, daily_rate):
         super().__init__(registration_number, make, model, year, daily_rate)
         
+    def __str__(self):
+        return f"{self.year} {self.make} {self.model} ({self.registration_number}) - Ksh {self.daily_rate}/day"
+
+        
     def calculate_rental_cost(self, days):
         return self.daily_rate * days
     
@@ -46,6 +50,9 @@ class SUV(Vehicle):
     def __init__(self, registration_number, make, model, year, daily_rate):
         super().__init__(registration_number, make, model, year, daily_rate)
         self.service_charge = 2000
+    
+    def __str__(self):
+            return f"{self.year} {self.make} {self.model} ({self.registration_number}) - Ksh {self.daily_rate}/day"
         
     def calculate_rental_cost(self, days):
         return self.daily_rate * days + self.service_charge
@@ -53,7 +60,10 @@ class SUV(Vehicle):
 # LuxuryCar class
 class LuxuryCar(Vehicle):
     def __init__(self, registration_number, make, model, year, daily_rate):
-        super().__init__(registration_number, make, model, year, daily_rate) 
+        super().__init__(registration_number, make, model, year, daily_rate)
+        
+    def __str__(self):
+            return f"{self.year} {self.make} {self.model} ({self.registration_number}) - Ksh {self.daily_rate}/day" 
         
     def calculate_rental_cost(self, days):
         # 10% insurance on that amount

@@ -23,7 +23,8 @@ class MpesaPayment(Payment):
     def __init__(self, phone_number, rental) -> None:
         super().__init__(rental)
         self.phone_number = phone_number
-        self.amount = rental.calculate_total()
+        self.amount = self.rental.calculate_total()
+        
     
     def process_payment(self):
         # genereates a transaction code and prints a confirmation
@@ -41,6 +42,7 @@ class MpesaPayment(Payment):
 class CardPayment(Payment):
     def __init__(self, card, rental) -> None:
         super().__init__(rental)
+        self.amount = self.rental.calculate_total()
         if not card or not str(card).strip():
                     raise ValueError("Card can't be empty")
         self.card = card
@@ -52,6 +54,7 @@ class CardPayment(Payment):
 class CashPayment(Payment):
     def __init__(self, cash, rental) -> None:
         super().__init__(rental)
+        self.amount = self.rental.calculate_total()
         self.cash = cash
         self.change = 0.0
         
@@ -71,17 +74,19 @@ class CashPayment(Payment):
            return True
          
 
-customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
-subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
-mercedes = LuxuryCar("KDS 1111", "Mercedes Benz", "Sclass", "2020", 15000)
+# customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
+# subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
+# mercedes = LuxuryCar("KDS 1111", "Mercedes Benz", "Sclass", "2020", 15000)
 
-safaridrive = Rental("R001", 3, 5, customer1, mercedes)
+# safaridrive = Rental("R001", 3, 5, customer1, mercedes)
 
 # Mpesa = MpesaPayment("0707700995", safaridrive)
 # Mpesa.process_payment()
 
-# card = CardPayment("41236789", safaridrive)
-# card.process_payment()
+# # card = CardPayment("41236789", safaridrive)
+# # card.process_payment()
 
-cash = CashPayment(cash=100000, rental=safaridrive)
-cash.process_payment()
+# # cash = CashPayment(cash=100000, rental=safaridrive)
+# # cash.process_payment()
+
+# print(safaridrive.mark_as_paid())

@@ -20,7 +20,7 @@ class Rental(Customer, Vehicle):
         self.vehicle = Vehicle
         self.rental_days = rental_days
         self.actual_days = actual_days
-        self.status = ["ACTIVE", "COMPLETED", "CANCELLED"] 
+        self.status = "ACTIVE" 
         self.base_cost = Vehicle.calculate_rental_cost(rental_days)
         self.late_fee = 0.0
         self.damage_charge = 0.0
@@ -42,7 +42,7 @@ class Rental(Customer, Vehicle):
     def complete_rental(self, actual_days, damage_charge=0):
         # records the return and sets status to completed
         if actual_days == self.rental_days and damage_charge:
-            self.status[1]
+            self.status = 'COMPLETED'
         elif actual_days > self.rental_days:
             self.calculate_late_fee
         elif actual_days > self.rental_days and damage_charge > 0:
@@ -72,15 +72,15 @@ class Rental(Customer, Vehicle):
         print(f"Service Charge:    KSh {self.vehicle.service_charge}")
         print("-" * 40)
         print(f"TOTAL:             KSh {self.calculate_total()}")
-        print(f"Status: {self.status[0]:>17}")
+        print(f"Status: {self.status:>17}")
         print("=" * 40)
         
 
 
-customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
-subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
-mercedes = LuxuryCar("KDS 1111", "Mercedes Benz", "Sclass", "2020", 15000)
+# customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
+# subaru = EconomyCar("KDA 9907", "Subaru", "Forester", "2015", 4000)
+# mercedes = LuxuryCar("KDS 1111", "Mercedes Benz", "Sclass", "2020", 15000)
 
-safaridrive = Rental("R001", 3, 5, customer1, mercedes)
-# safaridrive.display_rental_details()
+# safaridrive = Rental("R001", 3, 5, customer1, mercedes)
+# # safaridrive.display_rental_details()
     

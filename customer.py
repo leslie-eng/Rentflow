@@ -12,11 +12,11 @@ class Customer:
         self.rentals = []
         
     def display_details(self):
-        print(f"""customer name: {self.name} 
-               customer id: {self.customer_id} 
-               phone number: {self.phone_number} 
-               national id: {self.national_id}
-               driving licence: {self.driving_licence}""") 
+        print(f"customer name: {self.name}")
+        print(f"customer id: {self.customer_id}")
+        print(f"phone number: {self.phone_number}") 
+        print(f"national id: {self.national_id}")
+        print(f"driving licence: {self.driving_licence}")
         
         
     def add_rental(self, rental):
@@ -28,6 +28,6 @@ class Customer:
     
 
 ## test script to check if it works
-customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
+# customer1 = Customer("0101", "Leslie", "0712345678", "7575", "12345678")
            
 
