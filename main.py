@@ -19,7 +19,6 @@ customer1 = Customer("C001", "John Kamau", "0712345678", "12345678", "DL45821")
 system.register_customer(customer1)
 
 # Rent the Prado for 4 days
-system.show_available_vehicles()
 rental1 = system.rent_vehicle(customer1, car2, 4)
 rental1.display_rental_details()
 
@@ -31,7 +30,7 @@ except ValueError as error:
 
 # Return it 2 days late, then pay
 system.return_vehicle(rental1, actual_days=6)
-payment1 = MpesaPayment(rental1, "0712345678")
+payment1 = MpesaPayment("0712345678", rental1)
 system.process_payment(payment1)
 
 system.generate_report()

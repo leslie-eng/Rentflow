@@ -100,7 +100,7 @@ class CarRentalSystem:
         rental.complete_rental(actual_days=actual_days, damage_charge=damage_charge)
         rental.status = 'COMPLETED'
         rental.mark_as_available()
-        return self.show_available_vehicles()
+        return rental
     
     def process_payment(self, payment):
         # we have 3 types of payment and we only need to show it being processed
@@ -140,7 +140,7 @@ class CarRentalSystem:
         print()
         print(f"Total Rentals: {len(self.rentals):>16}")
         print(f"Active Rentals: {len([self.show_active_rentals()]):>15}")
-        print(f"Completed Rentals: {len([self.show_available_vehicles()]):>12}")
+        print(f"Completed Rentals: {len([r for r in self.rentals if r.status == 'COMPLETED']):>12}")
         print()
         print()
         print(f"Total Revenue:      Ksh {self.revenue}")

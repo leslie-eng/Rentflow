@@ -60,10 +60,6 @@ python main.py
 
 The example adds four vehicles, registers John Kamau, rents a Toyota Prado, attempts to rent the Prado again while unavailable, and returns it for payment processing and reporting.
 
-> [!WARNING]
-> The current `main.py` demo does not complete successfully: `MpesaPayment` is defined with `(phone_number, rental)`, but the example calls it with `(rental1, "0712345678")`. Update the call in `main.py` to:
-> `payment1 = MpesaPayment("0712345678", rental1)`
-
 ## Basic Usage
 
 The demo can also be adapted in a Python script. Core objects are imported directly from the modules:
