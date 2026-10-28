@@ -2,6 +2,28 @@
 
 RentFlow is a small Python object-oriented car-rental demonstration built around vehicles, customers, rentals, payments, and a central rental manager. It runs entirely in memory and includes Economy, SUV, and Luxury vehicle types.
 
+## Real-World Problem
+
+Car rental businesses need to coordinate vehicle availability, customer records, rental periods, charges, returns, and different payment methods without assigning the same vehicle to overlapping rentals. RentFlow models this workflow in software by maintaining the rental system's vehicles, customers, active rentals, and revenue, while ensuring that unavailable vehicles cannot be rented and that registered customers are the only customers allowed to create rentals. The project can serve as the foundation for a larger reservation or rental-management application.
+
+## Object-Oriented Design
+
+### Encapsulation
+
+Encapsulation is used to keep important state private or controlled through class methods. For example, `Vehicle` stores availability in `__available` and exposes it through `is_available()`, `mark_as_rented()`, and `mark_as_available()`. Similarly, `CarRentalSystem` stores revenue in `__revenue` and exposes it through the `revenue` property. This prevents other parts of the program from changing that state without using the intended operations.
+
+### Inheritance
+
+Inheritance represents different types of objects that share common behaviour. `EconomyCar`, `SUV`, and `LuxuryCar` inherit from `Vehicle`, while `MpesaPayment`, `CardPayment`, and `CashPayment` inherit from `Payment`. The subclasses reuse the common attributes and interfaces defined by their base classes while adding their own pricing or payment details.
+
+### Polymorphism
+
+Polymorphism allows each subclass to implement shared operations differently. Every vehicle type provides its own `calculate_rental_cost()` method, and every payment subclass provides its own `process_payment()` method. `CarRentalSystem` can therefore calculate or process a charge without needing separate logic for each subclass.
+
+### Abstraction
+
+Abstraction exposes essential behaviour while hiding implementation-specific details. `Vehicle` and `Payment` are abstract base classes created with Python's `ABC`; their abstract methods require every vehicle or payment subtype to implement `calculate_rental_cost()` or `process_payment()`. This gives the system consistent interfaces that concrete subclasses can implement according to their category.
+
 ## Features
 
 - Add vehicles and register customers.
